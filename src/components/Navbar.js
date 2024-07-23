@@ -58,9 +58,12 @@ const Navbar = () => {
                 <i className="fas fa-home mr-2"></i> Dashboards
               </Link>
             </li>
+
+        
+
             <li>
-              <Link to="/blogs" className="flex items-center text-gray-300 hover:text-white">
-                <i className="fas fa-blog mr-2"></i> Blogs
+                <Link to="/blog/create" className="flex items-center text-gray-300 hover:text-white">
+                <i className="fas fa-plus-circle mr-2"></i> Create Blog
               </Link>
             </li>
             <li>
@@ -73,11 +76,12 @@ const Navbar = () => {
                 <i className="fas fa-history mr-2"></i> Transaction History
               </Link>
             </li>
-            <li>
+            
+            {/* <li>
               <Link to="/users" className="flex items-center text-gray-300 hover:text-white">
                 <i className="fas fa-user mr-2"></i> Users
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/settings" className="flex items-center text-gray-300 hover:text-white">
                 <i className="fas fa-cog mr-2"></i> Settings
@@ -109,7 +113,7 @@ const Navbar = () => {
               <div className="absolute right-0 z-50 mt-2 w-48 bg-white rounded-md shadow-lg py-1 dark:bg-gray-700">
                 <div className="py-3 px-4">
                   <span className="block text-sm text-gray-900 dark:text-white">{currentUser?.firstName} {currentUser?.lastName}</span>
-                  <span className="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">Admin</span>
+                  <span className="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">Client</span>
                 </div>
                 <ul className="py-1" aria-labelledby="dropdown">
                   <li>

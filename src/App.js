@@ -13,8 +13,11 @@ import SubscriptionsPage from './pages/SubscriptionsPage';
 import TransactionsPage from './pages/TransactionsPage';
 import UsersPage from './pages/UsersPage';
 import SettingsPage from './pages/SettingsPage';
-
-
+import BlogViewPage from './pages/BlogViewPage'; // Import the new BlogViewPage
+import EditBlog from './pages/EditBlog';
+import CreateBlog from './pages/CreateBlog'; // Import the CreateBlog component
+import WaitingScreen from './pages/WaitingScreen';
+import Profile from './pages/Profile';
 
 
 const App = () => {
@@ -35,6 +38,28 @@ const App = () => {
             }
           />
 
+
+          <Route
+            path="/blog/create"
+            element={
+              <PrivateRoute>
+                <CreateBlog />
+              </PrivateRoute>
+            }
+          />
+
+
+          <Route 
+              path="/profile" 
+              element={
+              <PrivateRoute>
+                <Profile />
+              </PrivateRoute>
+              }
+              
+            />
+
+
           <Route
             path="/blogs"
             element={
@@ -44,6 +69,47 @@ const App = () => {
             }
           />
 
+
+           <Route
+            path="/blog/:blogId/view"
+            element={
+              <PrivateRoute>
+                <Layout>
+                  <BlogViewPage />
+                </Layout>
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/blog/:blogId/edit"
+            element={
+              <PrivateRoute>
+                <Layout>
+                  <EditBlog />
+                </Layout>
+              </PrivateRoute>
+            }
+          />
+
+
+           <Route
+            path="/waiting/:articleId"
+            element={
+              <PrivateRoute>
+                <WaitingScreen />
+              </PrivateRoute>
+            }
+          />
+
+          {/* <Route
+            path="/blog/:blog_id/view" // Add the new route for viewing a specific blog
+            element={
+              <PrivateRoute>
+                <BlogViewPage />
+              </PrivateRoute>
+            }
+          /> */}
           <Route
             path="/subscriptions"
             element={
@@ -52,8 +118,7 @@ const App = () => {
               </PrivateRoute>
             }
           />
-
- <Route
+          <Route
             path="/transactions"
             element={
               <PrivateRoute>
@@ -61,9 +126,7 @@ const App = () => {
               </PrivateRoute>
             }
           />
-
-
-           <Route
+          <Route
             path="/users"
             element={
               <PrivateRoute>
@@ -71,24 +134,16 @@ const App = () => {
               </PrivateRoute>
             }
           />
-
-           <Route
+          <Route
             path="/settings"
             element={
               <PrivateRoute>
-                                <Layout>
-
-                <SettingsPage />
-                                                </Layout>
-
+                <Layout>
+                  <SettingsPage />
+                </Layout>
               </PrivateRoute>
             }
           />
-
-
-
-
-
         </Routes>
       </Router>
     </AuthProvider>

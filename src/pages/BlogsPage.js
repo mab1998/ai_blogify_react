@@ -20,6 +20,26 @@ const BlogsPage = () => {
     fetchBlogs();
   }, []);
 
+  const handleDownload = async (blogId) => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/blog/${blogId}/download`);
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `blog_${blogId}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      } else {
+        console.error('Failed to download PDF');
+      }
+    } catch (error) {
+      console.error('Error downloading PDF:', error);
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
@@ -62,9 +82,9 @@ const BlogsPage = () => {
                 </p>
                 <div className="divider"></div>
                 <div className="btn-group">
-                  <Link to={`/blog/${blog.id}/view`} className="text-center">View Details</Link>
-                  <Link to={`/blog/${blog.id}/edit`} className="text-center">Edit Blog</Link>
-                  <Link to={`/blog/${blog.id}/download`} className="text-center">Download PDF</Link>
+                  <Link to={`/blog/${blog.id}/view`} className="text-center w-full border border-gray-300 rounded-md py-2">View Details</Link>
+                  <Link to={`/blog/${blog.id}/edit`} className="text-center w-full border border-gray-300 rounded-md py-2">Edit Blog</Link>
+                  <button onClick={() => handleDownload(blog.id)} className="text-center w-full border border-gray-300 rounded-md py-2">Download PDF</button>
                 </div>
               </div>
             </div>

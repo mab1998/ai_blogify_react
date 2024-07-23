@@ -38,6 +38,7 @@ const SubscriptionsPage = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
+      
       <div className="container mx-auto px-2">
         <div className="flex flex-wrap">
           <div className="flex items-center py-4 w-full">
@@ -45,6 +46,11 @@ const SubscriptionsPage = () => {
               <div className="">
                 <div className="flex flex-wrap justify-between">
                   <div className="items-center"></div>
+
+
+
+
+                  
                   <div className="flex items-center"></div>
                 </div>
               </div>
@@ -53,7 +59,46 @@ const SubscriptionsPage = () => {
         </div>
       </div>
 
+          <div className="container mx-auto px-2">
+                <div className="flex flex-wrap justify-between">
+                  <div className="items-center">
+                    <h1 className="font-semibold text-xl mb-1 block dark:text-slate-100">Subscription</h1>
+                    <ol className="list-reset flex text-sm">
+                      <li><button className="text-gray-500">T-Wind</button></li>
+                      <li><span className="text-gray-500 mx-2">/</span></li>
+                      <li className="text-blue-600 hover:text-blue-700">Subscription</li>
+                    </ol>
+                  </div>
+                  <div className="flex items-center">
+                  </div>
+                </div>
+      </div>
+
+
+         <div className="container mx-auto px-2">
+            <div className="flex flex-wrap">
+              <div className="flex items-center py-4 w-full">
+                <div className="w-full">
+                  <div className="">
+                    <div className="flex flex-wrap justify-between">
+                      <div className="items-center"></div>
+
+
+
+
+                      
+                      <div className="flex items-center"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+
       <div className="container mx-auto px-2 min-h-[calc(100vh-138px)] relative pb-14 grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+
+        
         {subscriptions.map((plan, index) => (
           <div key={index} className="card">
             <div className="card-body flex-grow text-center p-14">

@@ -22,29 +22,67 @@ const TransactionsPage = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      <div className="container mx-auto px-2">
+
+
+  <div className="container mx-auto px-2">
         <div className="flex flex-wrap">
           <div className="flex items-center py-4 w-full">
             <div className="w-full">
               <div className="">
                 <div className="flex flex-wrap justify-between">
-                  <div className="items-center">
-                    <h1 className="font-semibold text-xl mb-1 block dark:text-slate-100">Transactions</h1>
-                    <ol className="list-reset flex text-sm">
-                      <li><a href="#" className="text-gray-500">T-Wind</a></li>
-                      <li><span className="text-gray-500 mx-2">/</span></li>
-                      <li className="text-blue-600 hover:text-blue-700">Transactions</li>
-                    </ol>
-                  </div>
-                  <div className="flex items-center">
-                    <button className="px-3 py-2 lg:px-4 bg-blue-500 text-white text-sm font-semibold rounded hover:bg-blue-600">Create New</button>
-                  </div>
+                  <div className="items-center"></div>
+
+
+
+
+                  
+                  <div className="flex items-center"></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+          <div className="container mx-auto px-2">
+                <div className="flex flex-wrap justify-between">
+                  <div className="items-center">
+                    <h1 className="font-semibold text-xl mb-1 block dark:text-slate-100">Transactions</h1>
+                    <ol className="list-reset flex text-sm">
+                      <li><button className="text-gray-500">T-Wind</button></li>
+                      <li><span className="text-gray-500 mx-2">/</span></li>
+                      <li className="text-blue-600 hover:text-blue-700">Transactions</li>
+                    </ol>
+                  </div>
+                  <div className="flex items-center">
+                  </div>
+                </div>
+      </div>
+
+
+         <div className="container mx-auto px-2">
+            <div className="flex flex-wrap">
+              <div className="flex items-center py-4 w-full">
+                <div className="w-full">
+                  <div className="">
+                    <div className="flex flex-wrap justify-between">
+                      <div className="items-center"></div>
+
+
+
+
+                      
+                      <div className="flex items-center"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
 
       <div className="container mx-auto px-2 min-h-[calc(100vh-138px)] relative pb-14">
         <div className="grid md:grid-cols-12 lg:grid-cols-12 xl:grid-cols-12 gap-4 mb-4">
