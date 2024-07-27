@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import '../assets/styles/custom.css'; // Adjust the path as needed
 
-const TransactionsPage = () => {
+const AdminTransactionsPage = () => {
   const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
@@ -139,4 +139,4 @@ const TransactionsPage = () => {
   );
 };
 
-export default TransactionsPage;
+export default AdminTransactionsPage;

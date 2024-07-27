@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar';
 import '../assets/styles/custom.css'; // Adjust the path as needed
 import { Link } from 'react-router-dom';
 
-const BlogsPage = () => {
+const AdminBlogsPage = () => {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
@@ -95,4 +95,4 @@ const BlogsPage = () => {
   );
 };
 
-export default BlogsPage;
+export default AdminBlogsPage;

@@ -6,7 +6,7 @@ import { updatePassword, reauthenticateWithCredential, EmailAuthProvider } from 
 import Navbar from '../components/Navbar';
 import { useAuth } from '../AuthContext'; // Make sure to adjust the import according to your project structure
 
-const Profile = () => {
+const AdminProfile = () => {
   const { currentUser } = useAuth();
   const [formData, setFormData] = useState({
     firstName: '',
@@ -171,4 +171,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default AdminProfile;

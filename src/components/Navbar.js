@@ -66,6 +66,15 @@ const Navbar = () => {
                 <i className="fas fa-plus-circle mr-2"></i> Create Blog
               </Link>
             </li>
+
+  <li>
+                <Link to="/blogs" className="flex items-center text-gray-300 hover:text-white">
+                <i className="fas fa-plus-circle mr-2"></i>  Blogs
+              </Link>
+            </li>
+
+
+
             <li>
               <Link to="/subscriptions" className="flex items-center text-gray-300 hover:text-white">
                 <i className="fas fa-credit-card mr-2"></i> Subscriptions

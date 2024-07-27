@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 
 
-const WaitingScreen = () => {
+const AdminWaitingScreen = () => {
   const { articleId } = useParams();
   const [status, setStatus] = useState('processing');
 
@@ -43,4 +43,4 @@ const WaitingScreen = () => {
   );
 };
 
-export default WaitingScreen;
+export default AdminWaitingScreen;

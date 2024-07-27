@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 
-const SettingsPage = () => {
+const AdminSettingsPage = () => {
   const [activeTab, setActiveTab] = useState('ai-config');
   const [settings, setSettings] = useState({
     name: '',
@@ -218,4 +218,4 @@ const SettingsPage = () => {
   );
 };
 
-export default SettingsPage;
+export default AdminSettingsPage;

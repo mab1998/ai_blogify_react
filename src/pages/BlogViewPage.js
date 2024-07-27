@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 
-const ViewBlog = () => {
+const AdminBlogViewPage = () => {
   const { blogId } = useParams();
   const [blog, setBlog] = useState(null);
 
@@ -132,4 +132,4 @@ const copyHtml = (html) => {
     });
 };
 
-export default ViewBlog;
+export default AdminBlogViewPage;

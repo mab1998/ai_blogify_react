@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import QuillEditor from '../components/QuillEditor';
 
-const EditBlog = () => {
+const AdminEditBlog = () => {
   const { blogId } = useParams();
   const navigate = useNavigate();
   const [blog, setBlog] = useState({ title: '', article: '' });
@@ -84,4 +84,4 @@ const EditBlog = () => {
   );
 };
 
-export default EditBlog;
+export default AdminEditBlog;

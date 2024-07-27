@@ -18,6 +18,32 @@ import EditBlog from './pages/EditBlog';
 import CreateBlog from './pages/CreateBlog'; // Import the CreateBlog component
 import WaitingScreen from './pages/WaitingScreen';
 import Profile from './pages/Profile';
+import LandingPage from './pages/LandingPage';
+// import Landing from './pages/landing';
+
+
+import AdminHomePage from './admin/pages/HomePage'; // Admin HomePage import
+import AdminLayout from './admin/components/Layout'; // Assuming layout for admin pages is the same
+import AdminSubscriptionsPage from './admin//pages/SubscriptionsPage';
+import StylesPage from './admin//pages/StylesPage';
+
+
+
+
+import AdminAuthLayout from './components/AuthLayout'; // Assuming auth layout for admin pages is the same
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import AdminBlogsPage from './admin//pages/BlogsPage';
+import AdminTransactionsPage from './admin//pages/TransactionsPage';
+import AdminUsersPage from './admin//pages/UsersPage';
+import AdminSettingsPage from './admin//pages/SettingsPage';
+import AdminBlogViewPage from './admin//pages/BlogViewPage'; // Import the new BlogViewPage
+import AdminEditBlog from './admin//pages/EditBlog';
+import AdminCreateBlog from './admin//pages/CreateBlog'; // Import the CreateBlog component
+import AdminWaitingScreen from './admin//pages/WaitingScreen';
+import AdminProfile from './admin//pages/Profile';
+import AdminLandingPage from './pages/LandingPage';
+
+
 
 
 const App = () => {
@@ -25,8 +51,39 @@ const App = () => {
     <AuthProvider>
       <Router>
         <Routes>
+
+
+
+                  {/* Admin Routes */}
+          {/* Admin Routes */}
+          <Route path="/admin" element={<AdminLayout><AdminHomePage /></AdminLayout>} />
+
+          <Route path="/admin/manage_subscription" element={<AdminLayout><AdminSubscriptionsPage /></AdminLayout>} />
+          <Route path="//admin/manage_styles" element={<AdminLayout><StylesPage /></AdminLayout>} />
+          <Route path="/admin/transactions" element={<AdminLayout><AdminTransactionsPage /></AdminLayout>} />
+          <Route path="/admin/users" element={<AdminUsersPage />} />
+          <Route path="/admin/settings" element={<AdminLayout><AdminSettingsPage /></AdminLayout>} />
+
+{/* /admin/manage_ */}
+
+
+          <Route path="/admin/blog/create" element={<AdminCreateBlog />} />
+          <Route path="/admin/profile" element={<AdminProfile />} />
+          <Route path="/admin/blogs" element={<AdminBlogsPage />} />
+          <Route path="/admin/blog/:blogId/view" element={<AdminLayout><AdminBlogViewPage /></AdminLayout>} />
+          <Route path="/admin/blog/:blogId/edit" element={<AdminLayout><AdminEditBlog /></AdminLayout>} />
+          <Route path="/admin/waiting/:articleId" element={<AdminWaitingScreen />} />
+ 
+
+
+{/* Client Route */}
           <Route path="/login" element={<AuthLayout><LoginPage /></AuthLayout>} />
           <Route path="/register" element={<AuthLayout><RegisterPage /></AuthLayout>} />
+
+
+
+
+
           <Route
             path="/"
             element={
@@ -37,6 +94,22 @@ const App = () => {
               </PrivateRoute>
             }
           />
+
+          <Route path="/landing" element={<LandingPage />} />
+
+
+           {/* <Route
+            path="/landing"
+            element={
+              <PrivateRoute>
+                                <Layout>
+
+                  <LandingPage />
+                                  </Layout>
+
+              </PrivateRoute>
+            }
+          /> */}
 
 
           <Route
@@ -49,15 +122,15 @@ const App = () => {
           />
 
 
-          <Route 
-              path="/profile" 
-              element={
-              <PrivateRoute>
-                <Profile />
-              </PrivateRoute>
-              }
-              
-            />
+                  <Route 
+                      path="/profile" 
+                      element={
+                      <PrivateRoute>
+                        <Profile />
+                      </PrivateRoute>
+                      }
+                      
+                    />
 
 
           <Route
@@ -113,9 +186,9 @@ const App = () => {
           <Route
             path="/subscriptions"
             element={
-              <PrivateRoute>
+              // <PrivateRoute>
                 <SubscriptionsPage />
-              </PrivateRoute>
+              // </PrivateRoute>
             }
           />
           <Route

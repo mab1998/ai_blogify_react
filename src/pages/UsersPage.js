@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import '../assets/styles/custom.css'; // Adjust the path as needed
 
-const UsersPage = () => {
+const AdminUsersPage = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -101,4 +101,4 @@ const UsersPage = () => {
   );
 };
 
-export default UsersPage;
+export default AdminUsersPage;

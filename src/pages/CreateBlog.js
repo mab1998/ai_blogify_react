@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 
-const CreateBlog = () => {
+const AdminCreateBlog = () => {
   const [formData, setFormData] = useState({
     url: '',
     blogSize: 'Medium',
@@ -278,4 +278,4 @@ const CreateBlog = () => {
   );
 };
 
-export default CreateBlog;
+export default AdminCreateBlog;
