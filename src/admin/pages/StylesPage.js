@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../components/Navbar';
 import axios from 'axios';
 
 const initialSettings = {
@@ -36,8 +35,7 @@ const initialSettings = {
   pricing: {
     plans: [
       { title: '', price: '', features: [] },
-            { title: '', price: '', features: [] },
-
+      { title: '', price: '', features: [] },
     ],
   },
   testimonials: [
@@ -53,8 +51,7 @@ const initialSettings = {
     { question: '', answer: '' },
     { question: '', answer: '' },
     { question: '', answer: '' },
-        { question: '', answer: '' },
-
+    { question: '', answer: '' },
   ],
   contact: {
     address: '',
@@ -76,43 +73,11 @@ const StylesPage = () => {
   useEffect(() => {
     const fetchSettings = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/settings');
+        const response = await axios.get('http://127.0.0.1:8000/settings_styles');
         const data = response.data;
-        setSettings(prevSettings => ({
-          ...prevSettings,
-          ...data.settings,
-          navbar: {
-            ...prevSettings.navbar,
-            ...data.settings?.navbar,
-          },
-          hero: {
-            ...prevSettings.hero,
-            ...data.settings?.hero,
-          },
-          features: {
-            ...prevSettings.features,
-            ...data.settings?.features,
-          },
-          about: {
-            ...prevSettings.about,
-            ...data.settings?.about,
-          },
-          whatLookingFor: {
-            ...prevSettings.whatLookingFor,
-            ...data.settings?.whatLookingFor,
-          },
-          pricing: {
-            ...prevSettings.pricing,
-            ...data.settings?.pricing,
-          },
-          testimonials: data.settings?.testimonials || prevSettings.testimonials,
-          faq: data.settings?.faq || prevSettings.faq,
-          contact: {
-            ...prevSettings.contact,
-            ...data.settings?.contact,
-          },
-        }));
-      } catch (error) {
+        setSettings(data);
+        console.log("new settings",settings);     
+      console.log("data",data);   } catch (error) {
         console.error('Error fetching settings:', error);
       }
     };
@@ -121,7 +86,7 @@ const StylesPage = () => {
   }, []);
 
   const handleChange = (section, field, value) => {
-    setSettings((prevSettings) => ({
+    setSettings(prevSettings => ({
       ...prevSettings,
       [section]: {
         ...prevSettings[section],
@@ -131,7 +96,7 @@ const StylesPage = () => {
   };
 
   const handleNestedChange = (section, nestedSection, field, value) => {
-    setSettings((prevSettings) => ({
+    setSettings(prevSettings => ({
       ...prevSettings,
       [section]: {
         ...prevSettings[section],
@@ -156,7 +121,7 @@ const StylesPage = () => {
 
       const imageUrl = response.data.url;
 
-      setSettings((prevSettings) => ({
+      setSettings(prevSettings => ({
         ...prevSettings,
         [section]: {
           ...prevSettings[section],
@@ -168,10 +133,10 @@ const StylesPage = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://127.0.0.1:8000/settings', settings);
+      const response = await axios.post('http://127.0.0.1:8000/settings_styles', settings);
 
       if (response.status === 200) {
         alert('Settings updated successfully');
@@ -194,11 +159,12 @@ const StylesPage = () => {
                 <label className="block text-sm font-medium text-gray-700">Logo:</label>
                 <input
                   type="file"
+                  accept="image/*"
                   className="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer focus:outline-none"
-                  onChange={(e) => handleFileChange('navbar', 'logo', e.target.files[0])}
+                  onChange={e => handleFileChange('navbar', 'logo', e.target.files[0])}
                 />
                 {settings.navbar.logo && (
-                  <img src={settings.navbar.logo} alt="Logo" className="mt-2 h-16" />
+<img src={`http://127.0.0.1:8000${settings.navbar.logo}`} alt="Logo" className="mt-2 h-16" />
                 )}
               </div>
               <div>
@@ -206,10 +172,15 @@ const StylesPage = () => {
                 <textarea
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                   value={settings.navbar.links.join('\n')}
-                  onChange={(e) => handleChange('navbar', 'links', e.target.value.split('\n'))}
+                  onChange={e => handleChange('navbar', 'links', e.target.value.split('\n'))}
                 ></textarea>
               </div>
-              <button type="submit" className="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded hover:bg-blue-600 focus:outline-none">Update</button>
+              <button
+                type="submit"
+                className="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded hover:bg-blue-600 focus:outline-none"
+              >
+                Update
+              </button>
             </form>
           </div>
         );
@@ -223,8 +194,8 @@ const StylesPage = () => {
                 <input
                   type="text"
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  value={settings.hero.title}
-                  onChange={(e) => handleChange('hero', 'title', e.target.value)}
+                  value={settings.hero.title || ''}
+                  onChange={e => handleChange('hero', 'title', e.target.value)}
                 />
               </div>
               <div>
@@ -232,8 +203,8 @@ const StylesPage = () => {
                 <input
                   type="text"
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  value={settings.hero.subtitle}
-                  onChange={(e) => handleChange('hero', 'subtitle', e.target.value)}
+                  value={settings.hero.subtitle || ''}
+                  onChange={e => handleChange('hero', 'subtitle', e.target.value)}
                 />
               </div>
               <div>
@@ -241,8 +212,8 @@ const StylesPage = () => {
                 <input
                   type="text"
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  value={settings.hero.buttonText}
-                  onChange={(e) => handleChange('hero', 'buttonText', e.target.value)}
+                  value={settings.hero.buttonText || ''}
+                  onChange={e => handleChange('hero', 'buttonText', e.target.value)}
                 />
               </div>
               <div>
@@ -250,22 +221,28 @@ const StylesPage = () => {
                 <input
                   type="text"
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  value={settings.hero.buttonLink}
-                  onChange={(e) => handleChange('hero', 'buttonLink', e.target.value)}
+                  value={settings.hero.buttonLink || ''}
+                  onChange={e => handleChange('hero', 'buttonLink', e.target.value)}
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700">Image:</label>
                 <input
                   type="file"
+                  accept="image/*"
                   className="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer focus:outline-none"
-                  onChange={(e) => handleFileChange('hero', 'image', e.target.files[0])}
+                  onChange={e => handleFileChange('hero', 'image', e.target.files[0])}
                 />
                 {settings.hero.image && (
-                  <img src={settings.hero.image} alt="Hero" className="mt-2 h-32" />
+                  <img                   src={`http://127.0.0.1:8000${settings.hero.image}`} alt="Hero" className="mt-2 h-32" />
                 )}
               </div>
-              <button type="submit" className="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded hover:bg-blue-600 focus:outline-none">Update</button>
+              <button
+                type="submit"
+                className="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded hover:bg-blue-600 focus:outline-none"
+              >
+                Update
+              </button>
             </form>
           </div>
         );
@@ -279,8 +256,8 @@ const StylesPage = () => {
                 <input
                   type="text"
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  value={settings.features.title}
-                  onChange={(e) => handleChange('features', 'title', e.target.value)}
+                  value={settings.features.title || ''}
+                  onChange={e => handleChange('features', 'title', e.target.value)}
                 />
               </div>
               {settings.features.items.map((item, index) => (
@@ -290,11 +267,11 @@ const StylesPage = () => {
                     <input
                       type="text"
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                      value={item.title}
-                      onChange={(e) => {
+                      value={item.title || ''}
+                      onChange={e => {
                         const newItems = [...settings.features.items];
                         newItems[index].title = e.target.value;
-                        setSettings((prevSettings) => ({
+                        setSettings(prevSettings => ({
                           ...prevSettings,
                           features: {
                             ...prevSettings.features,
@@ -308,11 +285,11 @@ const StylesPage = () => {
                     <label className="block text-sm font-medium text-gray-700">Feature {index + 1} Description:</label>
                     <textarea
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                      value={item.description}
-                      onChange={(e) => {
+                      value={item.description || ''}
+                      onChange={e => {
                         const newItems = [...settings.features.items];
                         newItems[index].description = e.target.value;
-                        setSettings((prevSettings) => ({
+                        setSettings(prevSettings => ({
                           ...prevSettings,
                           features: {
                             ...prevSettings.features,
@@ -324,7 +301,12 @@ const StylesPage = () => {
                   </div>
                 </div>
               ))}
-              <button type="submit" className="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded hover:bg-blue-600 focus:outline-none">Update</button>
+              <button
+                type="submit"
+                className="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded hover:bg-blue-600 focus:outline-none"
+              >
+                Update
+              </button>
             </form>
           </div>
         );
@@ -338,19 +320,24 @@ const StylesPage = () => {
                 <input
                   type="text"
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  value={settings.about.title}
-                  onChange={(e) => handleChange('about', 'title', e.target.value)}
+                  value={settings.about.title || ''}
+                  onChange={e => handleChange('about', 'title', e.target.value)}
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700">Content:</label>
                 <textarea
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  value={settings.about.content}
-                  onChange={(e) => handleChange('about', 'content', e.target.value)}
+                  value={settings.about.content || ''}
+                  onChange={e => handleChange('about', 'content', e.target.value)}
                 ></textarea>
               </div>
-              <button type="submit" className="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded hover:bg-blue-600 focus:outline-none">Update</button>
+              <button
+                type="submit"
+                className="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded hover:bg-blue-600 focus:outline-none"
+              >
+                Update
+              </button>
             </form>
           </div>
         );
@@ -364,16 +351,16 @@ const StylesPage = () => {
                 <input
                   type="text"
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  value={settings.whatLookingFor.title}
-                  onChange={(e) => handleChange('whatLookingFor', 'title', e.target.value)}
+                  value={settings.whatLookingFor.title || ''}
+                  onChange={e => handleChange('whatLookingFor', 'title', e.target.value)}
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700">Content:</label>
                 <textarea
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  value={settings.whatLookingFor.content}
-                  onChange={(e) => handleChange('whatLookingFor', 'content', e.target.value)}
+                  value={settings.whatLookingFor.content || ''}
+                  onChange={e => handleChange('whatLookingFor', 'content', e.target.value)}
                 ></textarea>
               </div>
               <div>
@@ -381,8 +368,8 @@ const StylesPage = () => {
                 <input
                   type="text"
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  value={settings.whatLookingFor.buttonText}
-                  onChange={(e) => handleChange('whatLookingFor', 'buttonText', e.target.value)}
+                  value={settings.whatLookingFor.buttonText || ''}
+                  onChange={e => handleChange('whatLookingFor', 'buttonText', e.target.value)}
                 />
               </div>
               <div>
@@ -390,11 +377,16 @@ const StylesPage = () => {
                 <input
                   type="text"
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  value={settings.whatLookingFor.buttonLink}
-                  onChange={(e) => handleChange('whatLookingFor', 'buttonLink', e.target.value)}
+                  value={settings.whatLookingFor.buttonLink || ''}
+                  onChange={e => handleChange('whatLookingFor', 'buttonLink', e.target.value)}
                 />
               </div>
-              <button type="submit" className="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded hover:bg-blue-600 focus:outline-none">Update</button>
+              <button
+                type="submit"
+                className="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded hover:bg-blue-600 focus:outline-none"
+              >
+                Update
+              </button>
             </form>
           </div>
         );
@@ -410,11 +402,11 @@ const StylesPage = () => {
                     <input
                       type="text"
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                      value={plan.title}
-                      onChange={(e) => {
+                      value={plan.title || ''}
+                      onChange={e => {
                         const newPlans = [...settings.pricing.plans];
                         newPlans[index].title = e.target.value;
-                        setSettings((prevSettings) => ({
+                        setSettings(prevSettings => ({
                           ...prevSettings,
                           pricing: {
                             ...prevSettings.pricing,
@@ -429,11 +421,11 @@ const StylesPage = () => {
                     <input
                       type="text"
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                      value={plan.price}
-                      onChange={(e) => {
+                      value={plan.price || ''}
+                      onChange={e => {
                         const newPlans = [...settings.pricing.plans];
                         newPlans[index].price = e.target.value;
-                        setSettings((prevSettings) => ({
+                        setSettings(prevSettings => ({
                           ...prevSettings,
                           pricing: {
                             ...prevSettings.pricing,
@@ -447,11 +439,11 @@ const StylesPage = () => {
                     <label className="block text-sm font-medium text-gray-700">Plan {index + 1} Features:</label>
                     <textarea
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                      value={plan.features.join('\n')}
-                      onChange={(e) => {
+                      value={plan.features.join('\n') || ''}
+                      onChange={e => {
                         const newPlans = [...settings.pricing.plans];
                         newPlans[index].features = e.target.value.split('\n');
-                        setSettings((prevSettings) => ({
+                        setSettings(prevSettings => ({
                           ...prevSettings,
                           pricing: {
                             ...prevSettings.pricing,
@@ -463,7 +455,12 @@ const StylesPage = () => {
                   </div>
                 </div>
               ))}
-              <button type="submit" className="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded hover:bg-blue-600 focus:outline-none">Update</button>
+              <button
+                type="submit"
+                className="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded hover:bg-blue-600 focus:outline-none"
+              >
+                Update
+              </button>
             </form>
           </div>
         );
@@ -479,11 +476,11 @@ const StylesPage = () => {
                     <input
                       type="text"
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                      value={testimonial.name}
-                      onChange={(e) => {
+                      value={testimonial.name || ''}
+                      onChange={e => {
                         const newTestimonials = [...settings.testimonials];
                         newTestimonials[index].name = e.target.value;
-                        setSettings((prevSettings) => ({
+                        setSettings(prevSettings => ({
                           ...prevSettings,
                           testimonials: newTestimonials,
                         }));
@@ -495,11 +492,11 @@ const StylesPage = () => {
                     <input
                       type="text"
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                      value={testimonial.position}
-                      onChange={(e) => {
+                      value={testimonial.position || ''}
+                      onChange={e => {
                         const newTestimonials = [...settings.testimonials];
                         newTestimonials[index].position = e.target.value;
-                        setSettings((prevSettings) => ({
+                        setSettings(prevSettings => ({
                           ...prevSettings,
                           testimonials: newTestimonials,
                         }));
@@ -510,11 +507,11 @@ const StylesPage = () => {
                     <label className="block text-sm font-medium text-gray-700">Testimonial {index + 1} Message:</label>
                     <textarea
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                      value={testimonial.message}
-                      onChange={(e) => {
+                      value={testimonial.message || ''}
+                      onChange={e => {
                         const newTestimonials = [...settings.testimonials];
                         newTestimonials[index].message = e.target.value;
-                        setSettings((prevSettings) => ({
+                        setSettings(prevSettings => ({
                           ...prevSettings,
                           testimonials: newTestimonials,
                         }));
@@ -522,24 +519,28 @@ const StylesPage = () => {
                     ></textarea>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Testimonial {index + 1} Image URL:</label>
+                    <label className="block text-sm font-medium text-gray-700">Testimonial {index + 1} Image:</label>
                     <input
-                      type="text"
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                      value={testimonial.image}
-                      onChange={(e) => {
-                        const newTestimonials = [...settings.testimonials];
-                        newTestimonials[index].image = e.target.value;
-                        setSettings((prevSettings) => ({
-                          ...prevSettings,
-                          testimonials: newTestimonials,
-                        }));
-                      }}
+                      type="file"
+                      accept="image/*"
+                      className="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer focus:outline-none"
+                      onChange={e => handleFileChange('testimonials', index, e.target.files[0])}
                     />
+                    {testimonial.image && (
+                      <img                    
+                                        src={`http://127.0.0.1:8000${settings.testimonial.image}`}
+
+                      alt={`Testimonial ${index + 1}`} className="mt-2 h-16" />
+                    )}
                   </div>
                 </div>
               ))}
-              <button type="submit" className="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded hover:bg-blue-600 focus:outline-none">Update</button>
+              <button
+                type="submit"
+                className="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded hover:bg-blue-600 focus:outline-none"
+              >
+                Update
+              </button>
             </form>
           </div>
         );
@@ -555,11 +556,11 @@ const StylesPage = () => {
                     <input
                       type="text"
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                      value={item.question}
-                      onChange={(e) => {
+                      value={item.question || ''}
+                      onChange={e => {
                         const newFaq = [...settings.faq];
                         newFaq[index].question = e.target.value;
-                        setSettings((prevSettings) => ({
+                        setSettings(prevSettings => ({
                           ...prevSettings,
                           faq: newFaq,
                         }));
@@ -570,11 +571,11 @@ const StylesPage = () => {
                     <label className="block text-sm font-medium text-gray-700">FAQ {index + 1} Answer:</label>
                     <textarea
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                      value={item.answer}
-                      onChange={(e) => {
+                      value={item.answer || ''}
+                      onChange={e => {
                         const newFaq = [...settings.faq];
                         newFaq[index].answer = e.target.value;
-                        setSettings((prevSettings) => ({
+                        setSettings(prevSettings => ({
                           ...prevSettings,
                           faq: newFaq,
                         }));
@@ -583,7 +584,12 @@ const StylesPage = () => {
                   </div>
                 </div>
               ))}
-              <button type="submit" className="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded hover:bg-blue-600 focus:outline-none">Update</button>
+              <button
+                type="submit"
+                className="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded hover:bg-blue-600 focus:outline-none"
+              >
+                Update
+              </button>
             </form>
           </div>
         );
@@ -596,8 +602,8 @@ const StylesPage = () => {
                 <label className="block text-sm font-medium text-gray-700">Address:</label>
                 <textarea
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  value={settings.contact.address}
-                  onChange={(e) => handleChange('contact', 'address', e.target.value)}
+                  value={settings.contact.address || ''}
+                  onChange={e => handleChange('contact', 'address', e.target.value)}
                 ></textarea>
               </div>
               <div>
@@ -605,8 +611,8 @@ const StylesPage = () => {
                 <input
                   type="text"
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  value={settings.contact.email}
-                  onChange={(e) => handleChange('contact', 'email', e.target.value)}
+                  value={settings.contact.email || ''}
+                  onChange={e => handleChange('contact', 'email', e.target.value)}
                 />
               </div>
               <div>
@@ -614,8 +620,8 @@ const StylesPage = () => {
                 <input
                   type="text"
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  value={settings.contact.phone}
-                  onChange={(e) => handleChange('contact', 'phone', e.target.value)}
+                  value={settings.contact.phone || ''}
+                  onChange={e => handleChange('contact', 'phone', e.target.value)}
                 />
               </div>
               <div>
@@ -623,8 +629,8 @@ const StylesPage = () => {
                 <input
                   type="text"
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  value={settings.contact.form.name}
-                  onChange={(e) => handleNestedChange('contact', 'form', 'name', e.target.value)}
+                  value={settings.contact.form.name || ''}
+                  onChange={e => handleNestedChange('contact', 'form', 'name', e.target.value)}
                 />
               </div>
               <div>
@@ -632,8 +638,8 @@ const StylesPage = () => {
                 <input
                   type="text"
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  value={settings.contact.form.email}
-                  onChange={(e) => handleNestedChange('contact', 'form', 'email', e.target.value)}
+                  value={settings.contact.form.email || ''}
+                  onChange={e => handleNestedChange('contact', 'form', 'email', e.target.value)}
                 />
               </div>
               <div>
@@ -641,19 +647,24 @@ const StylesPage = () => {
                 <input
                   type="text"
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  value={settings.contact.form.phone}
-                  onChange={(e) => handleNestedChange('contact', 'form', 'phone', e.target.value)}
+                  value={settings.contact.form.phone || ''}
+                  onChange={e => handleNestedChange('contact', 'form', 'phone', e.target.value)}
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700">Contact Form Message:</label>
                 <textarea
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  value={settings.contact.form.message}
-                  onChange={(e) => handleNestedChange('contact', 'form', 'message', e.target.value)}
+                  value={settings.contact.form.message || ''}
+                  onChange={e => handleNestedChange('contact', 'form', 'message', e.target.value)}
                 ></textarea>
               </div>
-              <button type="submit" className="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded hover:bg-blue-600 focus:outline-none">Update</button>
+              <button
+                type="submit"
+                className="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded hover:bg-blue-600 focus:outline-none"
+              >
+                Update
+              </button>
             </form>
           </div>
         );
